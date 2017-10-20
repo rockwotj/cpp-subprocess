@@ -1,5 +1,5 @@
 cc_library(
     name = "subprocess",
-    hdrs = ["subprocess.h"],
+    hdrs = ["subprocess/subprocess.h"],
     visibility = ["//visibility:public"],
 )
