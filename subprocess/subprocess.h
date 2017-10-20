@@ -26,13 +26,14 @@ Documentation for C++ subprocessing libraray.
   SOFTWARE.
 
 @author [Arun Muralidharan]
-@see https://github.com/arun11299/cpp-subprocess to download the source code
+@modified [Tyler Rockwood]
+@see https://github.com/rockwotj/cpp-subprocess to download the source code
 
 @version 1.0.0
 */
 
-#ifndef SUBPROCESS_HPP
-#define SUBPROCESS_HPP
+#ifndef SUBPROCESS_H
+#define SUBPROCESS_H
 
 #include <algorithm>
 #include <cassert>
@@ -1531,4 +1532,4 @@ OutBuffer pipeline(Args&&... args) {
 
 };  // namespace subprocess
 
-#endif  // SUBPROCESS_HPP
+#endif  // SUBPROCESS_H
