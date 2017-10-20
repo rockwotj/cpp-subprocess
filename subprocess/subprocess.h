@@ -227,7 +227,7 @@ static inline std::pair<int, int> pipe_cloexec() throw(OSError) {
  * [out] int : Number of bytes written or -1 in case of failure.
  */
 static inline int write_n(int fd, const char* buf, size_t length) {
-  int nwritten = 0;
+  size_t nwritten = 0;
   while (nwritten < length) {
     int written = write(fd, buf + nwritten, length - nwritten);
     if (written == -1) return -1;
@@ -1336,7 +1336,8 @@ inline std::pair<OutBuffer, ErrBuffer> Communication::communicate(
     ErrBuffer ebuf;
     if (stream_->input()) {
       if (msg) {
-        int wbytes = std::fwrite(msg, sizeof(char), length, stream_->input());
+        size_t wbytes =
+            std::fwrite(msg, sizeof(char), length, stream_->input());
         if (wbytes < length) {
           if (errno != EPIPE && errno != EINVAL) {
             throw OSError("fwrite error", errno);
@@ -1404,7 +1405,7 @@ inline std::pair<OutBuffer, ErrBuffer> Communication::communicate_threaded(
   }
   if (stream_->input()) {
     if (msg) {
-      int wbytes = std::fwrite(msg, sizeof(char), length, stream_->input());
+      size_t wbytes = std::fwrite(msg, sizeof(char), length, stream_->input());
       if (wbytes < length) {
         if (errno != EPIPE && errno != EINVAL) {
           throw OSError("fwrite error", errno);
@@ -1457,7 +1458,8 @@ int call_impl(F& farg, Args&&... args) {
   return Popen(std::forward<F>(farg), std::forward<Args>(args)...).wait();
 }
 
-static inline void pipeline_impl(std::vector<Popen>& cmds) { /* EMPTY IMPL */ }
+static inline void pipeline_impl(std::vector<Popen>& cmds) { /* EMPTY IMPL */
+}
 
 template <typename... Args>
 static inline void pipeline_impl(std::vector<Popen>& cmds,
